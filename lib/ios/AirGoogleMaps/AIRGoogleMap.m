@@ -412,7 +412,7 @@ id regionAsJSON(MKCoordinateRegion region) {
       return @"automatic";
     case kGMSMapViewPaddingAdjustmentBehaviorAlways:
       return @"always";
-      
+
     default:
       return @"unknown";
   }
