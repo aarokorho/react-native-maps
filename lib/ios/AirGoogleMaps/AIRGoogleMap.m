@@ -15,6 +15,7 @@
 #import "AIRGoogleMapCircle.h"
 #import "AIRGoogleMapUrlTile.h"
 #import "AIRGoogleMapOverlay.h"
+#import "AIRGoogleMapHeatMap.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <MapKit/MapKit.h>
 #import <React/UIView+React.h>
@@ -138,6 +139,10 @@ id regionAsJSON(MKCoordinateRegion region) {
     AIRGoogleMapOverlay *overlay = (AIRGoogleMapOverlay*)subview;
     overlay.overlay.map = self;
     [self.overlays addObject:overlay];
+  } else if ([subview isKindOfClass:[AIRGoogleMapHeatMap class]]) {
+    AIRGoogleMapHeatMap *tile = (AIRGoogleMapHeatMap*)subview;
+    tile.tileLayer.map = self;
+    [self.tiles addObject:tile];
   } else {
     NSArray<id<RCTComponent>> *childSubviews = [subview reactSubviews];
     for (int i = 0; i < childSubviews.count; i++) {
@@ -172,6 +177,10 @@ id regionAsJSON(MKCoordinateRegion region) {
     [self.circles removeObject:circle];
   } else if ([subview isKindOfClass:[AIRGoogleMapUrlTile class]]) {
     AIRGoogleMapUrlTile *tile = (AIRGoogleMapUrlTile*)subview;
+    tile.tileLayer.map = nil;
+    [self.tiles removeObject:tile];
+  } else if ([subview isKindOfClass:[AIRGoogleMapHeatMap class]]) {
+    AIRGoogleMapHeatMap *tile = (AIRGoogleMapHeatMap*)subview;
     tile.tileLayer.map = nil;
     [self.tiles removeObject:tile];
   } else if ([subview isKindOfClass:[AIRGoogleMapOverlay class]]) {
@@ -341,7 +350,7 @@ id regionAsJSON(MKCoordinateRegion region) {
       return @"automatic";
     case kGMSMapViewPaddingAdjustmentBehaviorAlways:
       return @"always";
-      
+
     default:
       return @"unknown";
   }
