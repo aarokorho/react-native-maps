@@ -629,6 +629,10 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
       AirMapOverlay overlayView = (AirMapOverlay) child;
       overlayView.addToMap(map);
       features.add(index, overlayView);
+    } else if (child instanceof AirMapHeatMap) {
+      AirMapHeatMap urlTileView = (AirMapHeatMap) child;
+      urlTileView.addToMap(map);
+      features.add(index, urlTileView);
     } else if (child instanceof ViewGroup) {
       ViewGroup children = (ViewGroup) child;
       for (int i = 0; i < children.getChildCount(); i++) {

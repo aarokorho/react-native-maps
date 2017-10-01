@@ -27,10 +27,14 @@ public class AirMapUrlTile extends AirMapFeature {
         y = (1 << zoom) - y - 1;
       }
 
+      LatLong a = calculateLatLong(x + 1, y + 1, zoom);
+      LatLong b = calculateLatLong(x, y, zoom);
+
       String s = this.urlTemplate
-          .replace("{x}", Integer.toString(x))
-          .replace("{y}", Integer.toString(y))
-          .replace("{z}", Integer.toString(zoom));
+          .replace("{minLon}", Double.toString(b.getLong()))
+          .replace("{minLat}", Double.toString(a.getLat()))
+          .replace("{maxLon}", Double.toString(a.getLong()))
+          .replace("{maxLat}", Double.toString(b.getLat()));
       URL url = null;
 
       if(AirMapUrlTile.this.maximumZ > 0 && zoom > maximumZ) {
@@ -63,6 +67,7 @@ public class AirMapUrlTile extends AirMapFeature {
   private float maximumZ;
   private float minimumZ;
   private boolean flipY;
+  private float opacity;
 
   public AirMapUrlTile(Context context) {
     super(context);
@@ -106,6 +111,13 @@ public class AirMapUrlTile extends AirMapFeature {
     }
   }
 
+  public void setOpacity(float opacity) {
+    this.opacity = opacity;
+    if (tileOverlay != null) {
+      tileOverlay.setTransparency(opacity);
+    }
+  }
+
   public TileOverlayOptions getTileOverlayOptions() {
     if (tileOverlayOptions == null) {
       tileOverlayOptions = createTileOverlayOptions();
@@ -116,9 +128,19 @@ public class AirMapUrlTile extends AirMapFeature {
   private TileOverlayOptions createTileOverlayOptions() {
     TileOverlayOptions options = new TileOverlayOptions();
     options.zIndex(zIndex);
+    options.transparency(opacity);
     this.tileProvider = new AIRMapUrlTileProvider(256, 256, this.urlTemplate);
     options.tileProvider(this.tileProvider);
     return options;
+  }
+
+  private LatLong calculateLatLong(int x, int y, int zoom) {
+    double n = Math.pow(2, zoom);
+    double lon_deg = x / n * 360 - 180;
+    double lat_rad = Math.atan(Math.sinh(Math.PI * (1 - 2 * y / n)));
+    double lat_deg = Math.toDegrees(lat_rad);
+    LatLong coordinates = new LatLong(lat_deg, lon_deg);
+    return coordinates;
   }
 
   @Override
@@ -134,5 +156,23 @@ public class AirMapUrlTile extends AirMapFeature {
   @Override
   public void removeFromMap(GoogleMap map) {
     tileOverlay.remove();
+  }
+}
+
+class LatLong {
+  private double latitude;
+  private double longitude;
+
+  public LatLong(double latitude, double longitude) {
+    this.latitude = latitude;
+    this.longitude = longitude;
+  }
+
+  public double getLat() {
+    return this.latitude;
+  }
+
+  public double getLong() {
+    return this.longitude;
   }
 }
