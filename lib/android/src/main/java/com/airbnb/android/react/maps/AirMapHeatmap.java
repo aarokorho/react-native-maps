@@ -23,6 +23,7 @@ public class AirMapHeatmap extends AirMapFeature {
     private Gradient gradient;
     private Double opacity;
     private Integer radius;
+    private Float zIndex;
 
     public AirMapHeatmap(Context context) {
         super(context);
@@ -68,6 +69,13 @@ public class AirMapHeatmap extends AirMapFeature {
         }
     }
 
+    public void setZIndex(float zIndex) {
+      this.zIndex = zIndex;
+      if (heatmap != null) {
+        heatmap.setZIndex(zIndex);
+      }
+    }
+  
     public TileOverlayOptions getHeatmapOptions() {
         if (heatmapOptions == null) {
             heatmapOptions = createHeatmapOptions();
@@ -88,6 +96,9 @@ public class AirMapHeatmap extends AirMapFeature {
             }
             if (gradient != null) {
                 builder.gradient(gradient);
+            }
+            if (zIndex != null) {
+              options.zIndex(zIndex);
             }
             heatmapTileProvider = builder.build();
         }

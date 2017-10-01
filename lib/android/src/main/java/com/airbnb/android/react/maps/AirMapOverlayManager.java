@@ -51,9 +51,9 @@ public class AirMapOverlayManager extends ViewGroupManager<AirMapOverlay> {
     view.setZIndex(zIndex);
   }
 
-  @ReactProp(name = "opacity", defaultFloat = 1.0f)
+  @ReactProp(name = "opacity", defaultFloat = 0.0f)
   public void setOpacity(AirMapOverlay view, float opacity) {
-    view.setTransparency(1 - opacity);
+    view.setOpacity(opacity);
   }
 
   @ReactProp(name = "image")

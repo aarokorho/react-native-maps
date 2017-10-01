@@ -48,6 +48,12 @@
     [self.heatmap setOpacity:opacity];
 }
 
+- (void)setZIndex:(int)zIndex
+{
+  _zIndex = zIndex;
+  [self.heatmap setZIndex:zIndex];
+}
+
 - (void)setGradient:(NSDictionary *)gradient
 {
     NSArray<UIColor *> *colors = [RCTConvert UIColorArray:gradient[@"colors"]];
@@ -56,7 +62,7 @@
     
     GMUGradient *gmuGradient = [[GMUGradient alloc] initWithColors:colors
                                         startPoints:colorStartPoints
-                                       colorMapSize:colorMapSize];
+                                        colorMapSize:colorMapSize];
     _gradient = gmuGradient;
     [self.heatmap setGradient:gmuGradient];
 }

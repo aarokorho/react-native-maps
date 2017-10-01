@@ -12,7 +12,7 @@ android {
 
   defaultConfig {
     minSdkVersion safeExtGet('minSdkVersion', 16)
-    targetSdkVersion safeExtGet('targetSdkVersion', 27)
+    targetSdkVersion safeExtGet('targetSdkVersion', 28)
   }
 }
 
@@ -24,8 +24,8 @@ dependencies {
   implementation('com.facebook.react:react-native:+') {
     exclude group: 'com.android.support'
   }
-  implementation "com.google.android.gms:play-services-base:${safeExtGet('playServicesVersion', '17.0.0')}"
+  implementation "com.google.android.gms:play-services-base:${safeExtGet('playServicesVersion', '17.1.0')}"
   implementation "com.google.android.gms:play-services-maps:${safeExtGet('playServicesVersion', '17.0.0')}"
-  implementation "com.google.android.gms:play-services-location:17.0.0"
+  implementation "com.google.android.gms:play-services-location:${safeExtGet('playServicesVersion', '17.0.0')}"
   implementation 'com.google.maps.android:android-maps-utils:0.5'
 }

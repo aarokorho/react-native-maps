@@ -71,4 +71,9 @@ public class AirMapHeatmapManager extends ViewGroupManager<AirMapHeatmap> {
     public void setRadius(AirMapHeatmap view, int radius) {
         view.setRadius(radius);
     }
+
+    @ReactProp(name = "zIndex")
+    public void setZIndex(AirMapHeatmap view, float zIndex) {
+      view.setZIndex(zIndex);
+    }
 }

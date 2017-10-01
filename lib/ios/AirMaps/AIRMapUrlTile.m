@@ -49,6 +49,13 @@
   }
 }
 
+- (void)setOpacity:(CGFloat)opacity
+{
+    _opacity = opacity;
+    [self createTileOverlayAndRendererIfPossible];
+    [self update];
+}
+
 - (void)setUrlTemplate:(NSString *)urlTemplate{
     _urlTemplate = urlTemplate;
     _urlTemplateSet = YES;
@@ -66,7 +73,7 @@
 - (void) createTileOverlayAndRendererIfPossible
 {
     if (!_urlTemplateSet) return;
-    self.tileOverlay = [[MKTileOverlay alloc] initWithURLTemplate:self.urlTemplate];
+    self.tileOverlay = [[AIRMapTileOverlay alloc] initWithURLTemplate:self.urlTemplate];
 
     self.tileOverlay.canReplaceMapContent = self.shouldReplaceMapContent;
 
@@ -83,13 +90,17 @@
         self.tileOverlay.tileSize = CGSizeMake(self.tileSize, self.tileSize);
     }
     self.renderer = [[MKTileOverlayRenderer alloc] initWithTileOverlay:self.tileOverlay];
+    if (self.renderer && self.opacity) {
+        self.renderer.alpha = 1 - self.opacity;
+    }
 }
 
 - (void) update
 {
     if (!_renderer) return;
-    
+
     if (_map == nil) return;
+    _renderer.alpha = 1 - _opacity;
     [_map removeOverlay:self];
     [_map addOverlay:self level:MKOverlayLevelAboveLabels];
     for (id<MKOverlay> overlay in _map.overlays) {
