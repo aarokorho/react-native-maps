@@ -497,6 +497,24 @@ declare module "react-native-maps" {
   }
 
   export class WMSTile extends React.Component<MapWMSTileProps, any> {}
+
+  // =======================================================================
+  //  Heatmap
+  // =======================================================================
+
+  export interface MapHeatMapProps extends ViewProperties {
+    coordinates: {
+      latitude: number,
+      longitude: number,
+      intensity?: number,
+    }[];
+    zIndex?: number;
+    radius?: number;
+    opacity?: number;
+  }
+
+  export class HeatMap extends React.Component<MapHeatMapProps, any> {}
+
   // =======================================================================
   //  Overlay
   // =======================================================================
@@ -508,6 +526,7 @@ declare module "react-native-maps" {
     bounds: [Coordinate, Coordinate];
     tappable?: boolean;
     onPress?: (event: MapEvent<{ action: "overlay-press"; }>) => void;
+    opacity?: number
   }
 
   export class Overlay extends React.Component<MapOverlayProps, any> {}

@@ -25,6 +25,7 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_VIEW_PROPERTY(points, NSArray<NSDictionary *>)
+RCT_EXPORT_VIEW_PROPERTY(zIndex, int)
 RCT_EXPORT_VIEW_PROPERTY(radius, NSUInteger)
 RCT_EXPORT_VIEW_PROPERTY(opacity, float)
 RCT_EXPORT_VIEW_PROPERTY(gradient, NSDictionary *)

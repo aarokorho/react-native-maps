@@ -24,7 +24,7 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
   private Bitmap iconBitmap;
   private boolean tappable;
   private float zIndex;
-  private float transparency;
+  private float opacity;
 
   private final ImageReader mImageReader;
   private GoogleMap map;
@@ -50,11 +50,11 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
     }
   }
 
-  public void setTransparency(float transparency) {
-      this.transparency = transparency;
-      if (groundOverlay != null) {
-          groundOverlay.setTransparency(transparency);
-      }
+  public void setOpacity(float opacity) {
+    this.opacity = opacity;
+    if (groundOverlay != null) {
+        groundOverlay.setTransparency(opacity);
+    }
   }
 
   public void setImage(String uri) {
@@ -138,7 +138,7 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
     if (this.groundOverlay != null) {
       this.groundOverlay.setVisible(true);
       this.groundOverlay.setImage(this.iconBitmapDescriptor);
-      this.groundOverlay.setTransparency(this.transparency);
+      this.groundOverlay.setTransparency(this.opacity);
       this.groundOverlay.setClickable(this.tappable);
     }
   }
