@@ -49,6 +49,13 @@
   }
 }
 
+- (void)setOpacity:(NSUInteger)opacity
+{
+  _opacity = opacity;
+  [self update];
+}
+
+
 - (void)setUrlTemplate:(NSString *)urlTemplate{
     _urlTemplate = urlTemplate;
     _urlTemplateSet = YES;
@@ -88,8 +95,9 @@
 - (void) update
 {
     if (!_renderer) return;
-    
+
     if (_map == nil) return;
+    _renderer.alpha = _opacity;
     [_map removeOverlay:self];
     [_map addOverlay:self level:MKOverlayLevelAboveLabels];
     for (id<MKOverlay> overlay in _map.overlays) {
