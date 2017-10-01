@@ -41,5 +41,8 @@ yarn-error.log
 # Bundle artifact
 *.jsbundle
 
+  # CocoaPods
+/ios/Pods/
+
 # VSCode workspace settings
 .vscode
