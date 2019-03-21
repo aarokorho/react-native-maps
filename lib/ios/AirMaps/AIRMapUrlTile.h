@@ -21,7 +21,7 @@
 
 @property (nonatomic, weak) AIRMap *map;
 
-@property (nonatomic, strong) AIRMapUrlTile *tileOverlay;
+@property (nonatomic, strong) AIRMapTileOverlay *tileOverlay;
 @property (nonatomic, strong) MKTileOverlayRenderer *renderer;
 @property (nonatomic, copy) NSString *urlTemplate;
 @property NSInteger maximumZ;
