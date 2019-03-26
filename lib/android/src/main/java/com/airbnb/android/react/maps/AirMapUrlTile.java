@@ -31,10 +31,10 @@ public class AirMapUrlTile extends AirMapFeature {
       LatLong b = calculateLatLong(x, y, zoom);
 
       String s = this.urlTemplate
-          .replace("{minLon}", Double.toString(a.getLong()))
-          .replace("{minLat}", Double.toString(b.getLat()))
-          .replace("{maxLon}", Double.toString(b.getLong()))
-          .replace("{maxLat}", Double.toString(a.getLat()));
+          .replace("{minLon}", Double.toString(b.getLong()))
+          .replace("{minLat}", Double.toString(a.getLat()))
+          .replace("{maxLon}", Double.toString(a.getLong()))
+          .replace("{maxLat}", Double.toString(b.getLat()));
       URL url = null;
 
       if(AirMapUrlTile.this.maximumZ > 0 && zoom > maximumZ) {
@@ -139,7 +139,7 @@ public class AirMapUrlTile extends AirMapFeature {
     double lon_deg = x / n * 360 - 180;
     double lat_rad = Math.atan(Math.sinh(Math.PI * (1 - 2 * y / n)));
     double lat_deg = Math.toDegrees(lat_rad);
-    LatLong coordinates = new LatLong(lon_deg, lat_deg);
+    LatLong coordinates = new LatLong(lat_deg, lon_deg);
     return coordinates;
   }
 

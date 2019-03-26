@@ -31,10 +31,10 @@
     CLLocation *a = [self calculateLatLongFrom:(path.x + 1l) y:(path.y + 1l) andZoom:path.z];
     CLLocation *b = [self calculateLatLongFrom:path.x y:path.y andZoom:path.z];
     
-    NSString *minLon = [self.urlTemplate stringByReplacingOccurrencesOfString:@"{minLon}" withString:[[NSNumber numberWithDouble:a.coordinate.longitude] stringValue]];
-    NSString *minLat = [minLon stringByReplacingOccurrencesOfString:@"{minLat}" withString:[[NSNumber numberWithDouble:b.coordinate.latitude] stringValue]];
-    NSString *maxLon = [minLat stringByReplacingOccurrencesOfString:@"{maxLon}" withString:[[NSNumber numberWithDouble:b.coordinate.longitude] stringValue]];
-    NSString *url = [maxLon stringByReplacingOccurrencesOfString:@"{maxLat}" withString:[[NSNumber numberWithDouble:a.coordinate.latitude] stringValue]];
+    NSString *minLon = [self.urlTemplate stringByReplacingOccurrencesOfString:@"{minLon}" withString:[[NSNumber numberWithDouble:b.coordinate.longitude] stringValue]];
+    NSString *minLat = [minLon stringByReplacingOccurrencesOfString:@"{minLat}" withString:[[NSNumber numberWithDouble:a.coordinate.latitude] stringValue]];
+    NSString *maxLon = [minLat stringByReplacingOccurrencesOfString:@"{maxLon}" withString:[[NSNumber numberWithDouble:a.coordinate.longitude] stringValue]];
+    NSString *url = [maxLon stringByReplacingOccurrencesOfString:@"{maxLat}" withString:[[NSNumber numberWithDouble:b.coordinate.latitude] stringValue]];
  
     return [NSURL URLWithString:url];
 };
