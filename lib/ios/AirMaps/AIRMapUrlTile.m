@@ -49,12 +49,12 @@
   }
 }
 
-- (void)setOpacity:(NSUInteger)opacity
+- (void)setOpacity:(CGFloat)opacity
 {
-  _opacity = opacity;
-  [self update];
+    _opacity = opacity;
+    [self createTileOverlayAndRendererIfPossible];
+    [self update];
 }
-
 
 - (void)setUrlTemplate:(NSString *)urlTemplate{
     _urlTemplate = urlTemplate;
