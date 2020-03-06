@@ -505,6 +505,7 @@ declare module "react-native-maps" {
     bounds: [Coordinate, Coordinate];
     tappable?: boolean;
     onPress?: (event: MapEvent<{ action: "overlay-press"; }>) => void;
+    opacity?: number
   }
 
   export class Overlay extends React.Component<MapOverlayProps, any> {}
