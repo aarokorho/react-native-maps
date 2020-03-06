@@ -19,7 +19,6 @@
 
 - (void)setImageSrc:(NSString *)imageSrc
 {
-    NSLog(@">>> SET IMAGESRC: %@", imageSrc);
     _imageSrc = imageSrc;
 
     if (_reloadImageCancellationBlock) {
@@ -39,7 +38,6 @@
                                                                          NSLog(@"%@", error);
                                                                      }
                                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                                         NSLog(@">>> IMAGE: %@", image);
                                                                          weakSelf.overlayImage = image;
                                                                          [weakSelf createOverlayRendererIfPossible];
                                                                          [weakSelf update];
@@ -50,8 +48,8 @@
 - (void)setBoundsRect:(NSArray *)boundsRect {
     _boundsRect = boundsRect;
 
-    _southWest = CLLocationCoordinate2DMake([boundsRect[0][0] doubleValue], [boundsRect[0][1] doubleValue]);
-    _northEast = CLLocationCoordinate2DMake([boundsRect[1][0] doubleValue], [boundsRect[1][1] doubleValue]);
+    _southWest = CLLocationCoordinate2DMake([boundsRect[1][0] doubleValue], [boundsRect[0][1] doubleValue]);
+    _northEast = CLLocationCoordinate2DMake([boundsRect[0][0] doubleValue], [boundsRect[1][1] doubleValue]);
 
     MKMapPoint southWest = MKMapPointForCoordinate(_southWest);
     MKMapPoint northEast = MKMapPointForCoordinate(_northEast);
@@ -77,7 +75,11 @@
     [_map addOverlay:self];
 }
 
-
+- (void)setOpacity:(CGFloat)opacity
+{
+    _opacity = opacity;
+    [self update];
+}
 #pragma mark MKOverlay implementation
 
 - (CLLocationCoordinate2D)coordinate
