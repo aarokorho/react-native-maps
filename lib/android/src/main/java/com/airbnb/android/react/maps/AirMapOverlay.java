@@ -24,7 +24,7 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
   private Bitmap iconBitmap;
   private boolean tappable;
   private float zIndex;
-  private float transparency;
+  private float opacity;
 
   private final ImageReader mImageReader;
   private GoogleMap map;
